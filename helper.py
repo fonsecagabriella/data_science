@@ -6,6 +6,7 @@ from sklearn import preprocessing
 from sklearn.metrics import r2_score
 from sklearn.linear_model import LinearRegression
 from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import PolynomialFeatures
 
 # Read the file "Advertising.csv"
 df = pd.read_csv("Advertising.csv")
@@ -90,4 +91,21 @@ def fit_and_plot_multi():
 	return r2_train, r2_test
 
 
+def get_poly_pred(x_train, x_test, y_train, degree=1):
 
+    # Generate polynomial features on the train data
+    x_poly_train= PolynomialFeatures(degree=degree).fit_transform(x_train)
+
+    # Generate polynomial features on the test data
+    print(x_train.shape, x_test.shape, y_train.shape)
+    x_poly_test= PolynomialFeatures(degree=degree).fit_transform(x_test)
+
+    # Initialize a model to perform polynomial regression
+    polymodel = LinearRegression()
+
+    # Fit the model on the polynomial transformed train data
+    polymodel.fit(x_poly_train, y_train)
+
+    # Predict on the entire polynomial transformed test data
+    y_poly_pred = polymodel.predict(x_poly_test)
+    return y_poly_pred
