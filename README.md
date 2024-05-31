@@ -5,7 +5,7 @@ Several Python libraries are used.
 
 1. A/B testing
 2. Book - Introduction to Machine Learning with Python (Andreas C. Müller & Sarah Guido)
-3. Introdcution to Data Science with Python - CS109x (Harvad Online)
+3. Introdcution to Data Science with Python - CS109x (Harvard Online)
 4. Data Visualisation (Kaggle)
 
 
