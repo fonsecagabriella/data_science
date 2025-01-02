@@ -1,5 +1,3 @@
-Model year,Make,Model,Vehicle class,Engine size,Cylinders,Transmission,Fuel type,City,Highway,Combined,Combined (mpg)
-2023,Kia,Forte,Compact,2.0,4,AV,X,8.2,6.0,7.2,39.2 
-2024,Nissan,Sentra,Compact,2.0,4,AV,X,7.4,6.1,6.8,41.5 
-2023,Honda,Accord,Mid-size,2.0,4,AV,X,5.53,6.4,5.9,48 
-2024,Genesis,G70,Mid-size,2.5,4,A,Z,11.7,8.4,10.2,27.7 
+version https://git-lfs.github.com/spec/v1
+oid sha256:b78b4c3bc7b46f1bdfa5371805c51c17a43c981c8b4c5e3d1f51eaba80f9e45d
+size 336
