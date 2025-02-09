@@ -15,7 +15,7 @@
 - The file you downloaded is your python script you can usewgwt
 
 
-## 2.0 Web Service
+## 2.0 Web Service 
 
 **Web service**:  A service that communicates via a network. You send a request (ping), get a treated output (pong)
  
