@@ -18,7 +18,7 @@
 ## 2.0 Web Service
 
 **Web service**:  A service that communicates via a network. You send a request (ping), get a treated output (pong)
-
+ 
 - Here we create a `Flask Web Service`, named `ping.py` in the `code_deployment` folder. 
 
 ````
