@@ -20,8 +20,17 @@
 **Web service**:  A service that communicates via a network. You send a request (ping), get a treated output (pong)
  
 - Here we create a `Flask Web Service`, named `ping.py` in the `code_deployment` folder. 
+- `curl` requests a webservice
 
 ````
 curl http://0.0.0.0:9696/ping
 ````
- 
+
+## 3.0 Serving the churn model with Flask
+<img src="/imgs/serving-flask.png" width="70%">
+
+## 4.0 Pipenv
+
+- Install pipenv
+- pipenv shell
+- pipenv run gunicorn --bind 0.0.0.0:9696 predict:app
