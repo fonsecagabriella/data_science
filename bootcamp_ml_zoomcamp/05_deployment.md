@@ -34,3 +34,5 @@ curl http://0.0.0.0:9696/ping
 - Install pipenv
 - pipenv shell
 - pipenv run gunicorn --bind 0.0.0.0:9696 predict:app
+
+https://www.youtube.com/watch?v=BMXh8JGROHM&list=PL3MmuxUbc_hIhxl5Ji8t4O6lPAOpHaCLR&index=54
