@@ -129,10 +129,9 @@ Change the measure of each of the fields to Average (only in tooltip)
 
 Click on the Tooltip button, and edit the text to look like this: 
 
+You can add the field calculation by selecting from the Insert dropdown menu
 
-    You can add the field calculation by selecting from the Insert dropdown menu
-
-   4.   Select OK. Now you should see the more informative tooltip as you hover over the different segments in the chart
+Select OK. Now you should see the more informative tooltip as you hover over the different segments in the chart
 
 ## Exercise 10: Pie Chart
 You wish to know if receiving diabetes medication has any impact on the readmission of the patient
