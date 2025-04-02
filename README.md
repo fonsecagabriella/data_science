@@ -25,6 +25,9 @@ Several Python libraries are used.
 - COURSE | [Mathematics for Machine Learning](./course_mathematics_for_ml/)(DeepLearning.AI)
 - COURSE | [Zoomcamp Machine Learning](./course_zootcamp_ml_zoomcamp/)
 
+## Notes
+- [Tableau](./course_tableau/)
+
 
 ## Projects
 
