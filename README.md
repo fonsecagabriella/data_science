@@ -33,9 +33,10 @@ Several Python libraries are used.
 
 - DATA ANALYSIS | [Airlines](./projects/00_data_analysis_airlines.ipynb)
 - DATA ANALYSIS | [Car CO2 emissions](./projects/00_data_analysis_car_co2.ipynb)
+- DATA ANALYSIS | [Coral](./projects/00_data_analysis_corals.ipynb)
 - ML / CLASSIFICATION | [Wine Classifier](./projects/04_wine_classifier_svc.ipynb)
 - ML / CLASSIFICATION | [Titanic Survivors](./projects/00_titanic_classification.ipynb)
-
+- 
 ## Support folders
 - data
 - img
