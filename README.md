@@ -7,7 +7,7 @@ Several Python libraries are used.
 
 ## Methodologies
 
-1. [A/B testing](./ab_testing/)
+1. [A/B testing](.statistics/ab_testing/)
 2. [Data cleaning](./data_cleaning/)
 3. [Statistics](./statistics/)
 
