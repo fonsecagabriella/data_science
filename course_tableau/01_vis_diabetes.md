@@ -1,16 +1,15 @@
 # Visualisation: Diabetes Care Analytics
 
-[Link to Tableau](https://public.tableau.com/app/profile/gabi.fonseca/viz/Diabetes_17429186215350/Sheet6#1)
+[Link to Tableau](https://public.tableau.com/app/profile/gabi.fonseca/viz/Dashboard-Diabetes/ReadmissionsandDiagnoses)
 
 ## Background
 You are a data analyst at MedInsight Solutions, a healthcare analytics consultancy helping hospitals improve patient outcomes. Your task is to identify factors influencing diabetes readmission rates and provide actionable recommendations to hospital administrators.
 
-In this lab you will be working with a slightly pre-processed version of the 
-[Diabetes 130-US Hospitals](https://archive.ics.uci.edu/dataset/296/diabetes+130-us+hospitals+for+years+1999-2008) dataset.
+In this lab you will be working with a slightly pre-processed version of the [Diabetes 130-US Hospitals](https://archive.ics.uci.edu/dataset/296/diabetes+130-us+hospitals+for+years+1999-2008) dataset.
 
 
 - Copy the data
-- Define the relationships between the tables.  
+- Define the relationships between the tables.
 
 
 ## Exercise 2: Inspect the data
@@ -21,13 +20,13 @@ On the left side you should see all the tables. Take a moment to inspect the ava
 ## Exercise 3: Creating New Fields
 If you want to look into aggregated values of the “Readmitted” field, you will need to create new fields, because Tableau doesn’t know how to summarize the field
 
-Create a new Calculated Field called "Not Readmitted”: 
+Create a new Calculated Field called "Not Readmitted”:
 
 Go to Analysis and select Create Calculated Field
 
 Change the name from “Calculation1” to “Not Readmitted”
 
-In the calculation box type the formula FLOAT([Readmitted]="NO"). Here is the breakdown of the formula: 
+In the calculation box type the formula FLOAT([Readmitted]="NO"). Here is the breakdown of the formula:
 
 [Readmitted]="NO" returns a boolean. Note that the variable goes between square brackets
 
@@ -39,7 +38,7 @@ Repeat the process to create two more Calculated Fields:
 
 “Readmitted <30”
 
-To check your results, drag the fields “Age”, “Not Readmitted”, “Readmitted >30” and “Readmitted <30” into the sheet. This will show the number of patients in each age group with each type of readmission. 
+To check your results, drag the fields “Age”, “Not Readmitted”, “Readmitted >30” and “Readmitted <30” into the sheet. This will show the number of patients in each age group with each type of readmission.
 
 
 ## Exercise 4: Aggregated Charts
@@ -207,6 +206,53 @@ Change the color scale to Green-Blue diverging
 Change the title of the color scale legend to “% of Patients per Medical Specialty”
 
 Add the rows grand total by clicking in the Analysis menu, then going to Totals, and selecting Show Row Grand Totals
+
+
+## Dashboard: Diabetes
+
+
+- Right next to the “New Worksheet” button, there is a “New Dashboard” button. Click on it to create a new empty dashboard. Rename the dashboard to “Readmissions and Diagnoses”
+
+
+- They want to raise awareness of readmissions regarding diabetes, so they want to display the dashboard as a part of their webpage. They want you to use 800x800px space showing the two plots. Go to the dashboard tab on the right hand side and select size. Use the “Webpage Embedded (800 x 800)” setting.
+
+
+- Add plots to the dashboard
+    - Drag and drop the “Readmissions by Age” sheet to the dashboard. Make sure that “tiled” is selected in the bottom left corner.
+
+    - Drag and drop the “Diagnoses” sheet to the bottom part of the dashboard. Make sure that “tiled” is selected in the bottom left corner, so that the area is automatically split in two halves for each plot.
+
+
+- Customize the dashboard: Add filters
+    - Go to the “Readmissions by Age” worksheet (this will temporarily take you off the dashboard). Add a new filter to it: “Gender”.
+    - Go back to the dashboard and add the filter to the dashboard.
+    - Click on the “Readmissions by Age” chart on the dashboard so that additional options appear in the top right corner.
+    - Click the arrow and select “Gender” from the “Filters” menu. The filter should appear on the right side of the charts.
+
+    - Now the filter only filters the data in the top chart, but not in the bottom one. Make the filter work for both charts.
+
+    - Click on the filters on the right. Similarly as when clicking on a chart, additional options appear on the right side.
+
+    - Click on the arrow down and select “All Using Related Data Sources” from the “Apply to Worksheets” menu.
+
+    - Use the charts as a filter, so when a user clicks on the data, the other chart is filtered to only show this data. For example when a user selects a certain diagnosis, the top chart would show the readmissions data only for the selected diagnosis or when a user selects an age group on the top chart, the diagnosis would be shown only for that age group.
+
+    - Click on the “Diagnosis” chart on the dashboard so that additional options appear in the top right corner.
+
+    - Click on the “Use as Filter” button (with a filter icon) to make this chart a filter.
+
+    - Repeat the same for the “Readmissions by Age” chart.
+
+- Add a text box
+    - As you investigate the data by clicking on different age brackets in the top chart, you notice that the diagnoses drastically differ between the age brackets. You decide to add a text annotation to acknowledge your findings.
+
+    - Create a text box to the left of the “Diagnosis” chart.
+
+    - Find “Text” on the bottom left hand side and drag it to the dashboard. Make sure you first select “Floating” in the bottom left corner.
+
+    - Add the following text to the text box: `Heart failure is the most common diagnosis, but it only becomes number one for patients above the age of 70.`
+
+    - Make the text size 11 and bold the important words.
 
 
 
