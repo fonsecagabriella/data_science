@@ -5,6 +5,9 @@
 - categorical
 - nominal 
 
+## standardization
+z = X-u / stddev (or o)
+
 ## Effect size
 - Always report on effect size
 
