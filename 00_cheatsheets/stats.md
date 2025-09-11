@@ -5,8 +5,20 @@
 - categorical
 - nominal 
 
-## standardization
+## confidence interval for mean
+x +/- z * stddev/sqrt(n)
+
+## confidence interval for proportions
+p +/- z * sqrt( (p*(1-p)) / n  )
+
+
+## standardization - Z-score
 z = X-u / stddev (or o)
+
+**Standard Error**
+SE = σ / √n,
+(you use SE for z-score if population mean is unknown)
+
 
 ## Effect size
 - Always report on effect size

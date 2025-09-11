@@ -35,3 +35,10 @@ The probability of getting exactly k successes is:
 - Mean: u = n*p
 - Variance o^2 = n x p (1-p)
 
+## Geometric Distribution
+The geometric distribution is related to the binomial distribution. 
+Instead of counting the number of successes in a fixed number of trials, it counts the number of trials needed to achieve the first success.
+
+## Negative Binomial Distribution
+The negative binomial distribution is a more general case of the geometric distribution. 
+While the geometric distribution counts the number of trials needed to achieve the first success, the negative binomial distribution counts the number of trials needed to achieve a specified number of successes (r).
