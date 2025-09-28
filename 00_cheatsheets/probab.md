@@ -42,3 +42,6 @@ Instead of counting the number of successes in a fixed number of trials, it coun
 ## Negative Binomial Distribution
 The negative binomial distribution is a more general case of the geometric distribution. 
 While the geometric distribution counts the number of trials needed to achieve the first success, the negative binomial distribution counts the number of trials needed to achieve a specified number of successes (r).
+
+## Bayesian
+<img src="./bayesian.png" width="50%">
