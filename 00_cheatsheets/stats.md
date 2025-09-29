@@ -8,12 +8,24 @@
 ## confidence interval for mean
 x +/- z * stddev/sqrt(n)
 
+- n needs to be = > than 30
+- this is the margin of error: z * stddev/sqrt(n)
+- z(1-alpha/2), where alpha is the significance level
+- o is the std of the population (almost always unknown), use z-score
+- stddev you use the mean of the sample (same formula, but here it will be called the the t-distribution, and you use the t-score)
+
+- the significance level is the maximum value of type 1 error you're willing to take ; maximum probability of making a type 1 error
+
 ## confidence interval for proportions
 p +/- z * sqrt( (p*(1-p)) / n  )
 
 
 ## standardization - Z-score
 z = X-u / stddev (or o)
+
+## critical value
+what is the least extreme sample you could get that you would still reject H0?
+
 
 **Standard Error**
 SE = stddev / √n,
@@ -33,6 +45,7 @@ SE = stddev / √n,
     - if n>30 you can use normal distribution (z-test)
 
 if n>30 you can use normal distribution
+- check if normal distribution with qqplot
 - Goodness of fit test: test if data follows a particular distribution
 - Two-sample t-test: two indepent groups
 - Paired t-test: same group, before and after
