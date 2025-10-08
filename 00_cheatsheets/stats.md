@@ -12,13 +12,20 @@ x +/- z * stddev/sqrt(n)
 - this is the margin of error: z * stddev/sqrt(n)
 - z(1-alpha/2), where alpha is the significance level
 - o is the std of the population (almost always unknown), use z-score
-- stddev you use the mean of the sample (same formula, but here it will be called the the t-distribution, and you use the t-score)
+- stddev you use the mean of the sample (same formula, but divide by n-1 in the std formula; not in the sqrt part;  
+    - df = n-1, use to find values in tables
+    - and here it will be called the the t-distribution, and you use the t-score)
 
 - the significance level is the maximum value of type 1 error you're willing to take ; maximum probability of making a type 1 error
 
 ## confidence interval for proportions
 p +/- z * sqrt( (p*(1-p)) / n  )
 
+- The population size needs to be at least 20 times bigger than the sample size. This is necessary to ensure that all samples are independent. This condition is not needed in situation like the coin toss, where independence is inherent to the experiment.
+- The individuals in the population can be divided into two categories: whether they belong to the specified category or they don't
+- n x po > 10 and n x (1-po) >10 to ensure Gaussian aproximation
+​
+  is true.
 
 ## standardization - Z-score
 z = X-u / stddev (or o)
@@ -26,6 +33,8 @@ z = X-u / stddev (or o)
 ## critical value
 what is the least extreme sample you could get that you would still reject H0?
 
+## power of test
+- probability of type 2 error (1-beta)
 
 **Standard Error**
 SE = stddev / √n,
