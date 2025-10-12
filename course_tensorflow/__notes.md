@@ -1,5 +1,13 @@
 # Tensorflow - Basics
 
+- The input layer should match the shape of your data
+- If working with images, you need to flatten the array so it matches shape
+- The last layer needs to match the shape of your data (for classification). If 10 possible values, then 10 in the last layer.
+- Normalise the data before passing it to the model
+- Pooling is a way to compress an image
+- Convolutions are like 'filters' that help to find edges in images. Each different convolution will likely 'highlight' certain parts of the image. In practice you multiply values in the image matrix by the values next to it, depending on the size set for the calculation. 
+
+
 ## Basic setup
 
 ```py
@@ -47,10 +55,21 @@ model.compile(optimizer='adam', loss='sparse_categorical_crossentropy', metrics=
 model.fit(training_images, training_labels, epochs=5, callbacks=[callbacks])
 ```
 
+## Convolutional NNs
 
-## Basic notes:
+```python
+model = tf.keras.models.Sequential([
+                                                         
+    # Add convolutions and max pooling
+    tf.keras.Input(shape=(28,28,1)),
+    tf.keras.layers.Conv2D(64, (3,3), activation='relu'),
+    tf.keras.layers.MaxPooling2D(2, 2),
+    tf.keras.layers.Conv2D(64, (3,3), activation='relu'),
+    tf.keras.layers.MaxPooling2D(2,2),
 
-- The input layer should match the shape of your data
-- If working with images, you need to flatten the array so it matches shape
-- The last layer needs to match the shape of your data (for classification). If 10 possible values, then 10 in the last layer.
-- Normalise the data before passing it to the model
+    # Add the same layers as before
+    tf.keras.layers.Flatten(),
+    tf.keras.layers.Dense(128, activation='relu'),
+    tf.keras.layers.Dense(10, activation='softmax')
+])
+```
