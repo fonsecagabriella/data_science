@@ -12,7 +12,7 @@ x +/- z * stddev/sqrt(n)
 - this is the margin of error: z * stddev/sqrt(n)
 - z(1-alpha/2), where alpha is the significance level
 - o is the std of the population (almost always unknown), use z-score
-- stddev you use the mean of the sample (same formula, but divide by n-1 in the std formula; not in the sqrt part;  
+- stddev you use the mean of the sample (same formula, but divide by n-1 in the std formula; not in the sqrt part;  valid for one sample only, when you have more, need to calculate)
     - df = n-1, use to find values in tables
     - and here it will be called the the t-distribution, and you use the t-score)
 
