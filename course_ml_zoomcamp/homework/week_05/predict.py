@@ -8,51 +8,43 @@ import uvicorn
 
 app = FastAPI(title="lead-score-service")
 
-# -------- Load artifacts --------
-with open("pipeline_v1.bin", "rb") as f_in:
-    dv, model = pickle.load(f_in)   # dv is a DictVectorizer (fit), model is trained
+# --------- Pydantic schema ---------
+class Lead(BaseModel):
+    lead_source: str
+    number_of_courses_viewed: int
+    annual_income: float
 
-# -------- Core scoring helper --------
+
+# --------- Load artifacts ---------
+with open("pipeline_v1.bin", "rb") as f_in:
+    dv, model = pickle.load(f_in)   # dv is DictVectorizer, model is trained classifier
+
+
+# --------- Core scoring helper ---------
 def lead_score_from_dict(payload: Dict[str, Any]) -> float:
     """
-    Accepts a free-form dict of lead attributes.
-    Unknown keys are ignored by DictVectorizer; missing keys become zeros.
-    Returns a probability-like score in [0, 1].
+    Take a single lead (dict) and return the probability
+    of getting a subscription (class 1).
     """
-    X = dv.transform([payload])  # DictVectorizer expects a list of dicts
+    # DictVectorizer expects a list of dicts
+    X = dv.transform([payload])
 
-    if hasattr(model, "predict_proba"):
-        score = float(model.predict_proba(X)[0, 1])
-    elif hasattr(model, "decision_function"):
-        raw = float(model.decision_function(X)[0])
-        score = 1.0 / (1.0 + np.exp(-raw))  # map margin → [0,1]
-    else:
-        # Some regressors output a number; clip to [0, 1] to act as a score
-        score = float(model.predict(X)[0])
-        score = float(np.clip(score, 0.0, 1.0))
+    # Most scikit-learn classifiers used in the course have predict_proba
+    proba = model.predict_proba(X)[0, 1]
 
-    return score
+    # Make sure it's a plain float (not numpy type) so it’s JSON-serializable
+    return float(proba)
 
-# -------- Response model --------
-class PredictResponse(BaseModel):
-    lead_score: float
-    qualified: bool
 
-# -------- Endpoints --------
-@app.post("/predict", response_model=PredictResponse)
-def predict(lead: Dict[str, Any]) -> PredictResponse:
+# --------- FastAPI endpoints ---------
+@app.post("/predict")
+def predict(lead: Lead) -> Dict[str, float]:
     """
-    Send any JSON dict. Example:
-    {
-      "gender": "female",
-      "partner": "yes",
-      "contract": "month-to-month",
-      "tenure": 5,
-      "monthlycharges": 70.2
-    }
+    Predict subscription probability for a given lead.
     """
-    score = lead_score_from_dict(lead)
-    return PredictResponse(lead_score=score, qualified=(score >= 0.5))
+    proba = lead_score_from_dict(lead.dict())
+    return {"subscription_probability": proba}
+
 
 @app.get("/features")
 def features() -> Dict[str, List[str]]:
@@ -67,5 +59,7 @@ def features() -> Dict[str, List[str]]:
     )
     return {"feature_names": names}
 
+
 if __name__ == "__main__":
+    # Option 1: run `python predict.py`
     uvicorn.run(app, host="0.0.0.0", port=9696)

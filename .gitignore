@@ -1,5 +1,30 @@
+
+*.sqlite3
+
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.egg-info/
+
+# Virtual environments
+venv/
+.env/
+.venv/
+*.env
 ve_ml/*
 projects/new_venv/*
 .venv/*
-*.sqlite3
 ve_ml2/*
+
+
+# Models / binaries
+*.bin
+*.pkl
+*.joblib
+
+# Docker / system
+.DS_Store
+*.log
