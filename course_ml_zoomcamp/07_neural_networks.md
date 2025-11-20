@@ -25,3 +25,35 @@ from tensorflow.keras.applications.xception import Xception: import the model fr
 from tensorflow.keras.application.xception import preprocess_input: function to perform preprocessing on images
 from tensorflow.keras.applications.xception import decode_predictions: extract the predictions class names in the form of tuple of list
 model.predict(X): function to make predictions on the test images
+
+## Convolutional Neural Networks
+
+- Convolutions are 'filters'; they are small matrixes that you go "slidding" on the top of your image and look how similar that filter is to that part of your image. 
+- Everytime you compare the filter with an image, you het a `feature map`
+- You have one feature map for each filter
+- A sequency of convulation neural networks learns complex shapes by building on the shapes of the previous layers
+
+<img src="./imgs/conv-nn.png" width="50%">
+
+- After an image passed through a convolutional network, you have a vector representation of that image
+
+- `Sigmoid` for multiple classes is `softmax`
+- `Dense layer` every element of the input is connected to an element of the `output`
+- `Pooling` makes a matrix smaller
+
+
+### Layers in a Convolutional Neural Network
+A Convolution neural network has multiple hidden layers that help in extracting information from an image. The four important layers in CNN are:
+
+1. **Convolution layer**
+    - This is the first step in the process of extracting valuable features from an image. A convolution layer has several filters that perform the convolution operation. Every image is considered as a matrix of pixel values.
+    - Consider a black and white image of 5x5 size whose pixel values are either 0 or 1 and also a filter matrix with a dimension of 3x3. Next, slide the filter matrix over the image and compute the dot product to get the convolved feature matrix.
+2. **ReLU layer**
+    - Once the feature maps are extracted, the next step is to move them to a ReLU layer. ReLU (Rectified Linear Unit) is an activation function which performs an element-wise operation and sets all the negative pixels to 0. It introduces non-linearity to the network, and the generated output is a rectified feature map. The relu function is: f(x) = max(0,x).
+3. **Pooling layer**
+    - Pooling is a down-sampling operation that reduces the dimensionality of the feature map. The rectified feature map goes through a pooling layer to generate a pooled feature map.
+    - Imagine a rectified feature map of size 4x4 goes through a max pooling filter of 2x2 size with stride of 2. In this case, the resultant pooled feature map will have a pooled feature map of 2x2 size where each value will represent the maximum value of each stride. The pooling layer uses various filters to identify different parts of the image like edges, shapes etc.
+4. **Fully connected layer (also called Dense layer)**
+    - The next step in the process is called flattening. Flattening is used to convert all the resultant 2D arrays from pooled feature maps into a single linear vector. This flattened vector is then fed as input to the fully connected layer to classify the image.
+
+## Transfer Learning
