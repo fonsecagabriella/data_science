@@ -57,3 +57,27 @@ A Convolution neural network has multiple hidden layers that help in extracting 
     - The next step in the process is called flattening. Flattening is used to convert all the resultant 2D arrays from pooled feature maps into a single linear vector. This flattened vector is then fed as input to the fully connected layer to classify the image.
 
 ## Transfer Learning
+
+Transfer learning leverages a pre-trained CNN model, specifically one trained on the large ImageNet dataset, to **reuse its convolutional layers (filters) as generic feature extractors**. 
+
+These convolutional layers have learned to convert images into rich vector representations, which can be reused for new tasks, avoiding the costly process of training from scratch on large datasets. The key idea is to **discard the original dense (fully connected) layers of the pre-trained model**, which are specific to the original dataset’s classes, and **replace them with new dense layers tailored** for the new classification task with fewer classes.
+
+The notebook demonstrates how to:
+- load the pre-trained base model (in this case, Xception), 
+- exclude its top dense layers, 
+- freeze its weights to prevent retraining, and 
+- build a new model by 
+    - adding global average pooling to transform the multi-dimensional convolutional output into a vector, followed by 
+    - a new dense layer for classification.
+
+The training setup involves compiling the model with the Adam optimizer, categorical cross-entropy loss suitable for multi-class classification, and accuracy as the metric. The training process involves multiple epochs iterating over batches of images, with evaluation on a validation set to observe overfitting and performance trends. 
+
+
+**Highlights**
+🔄 Transfer learning utilizes pre-trained CNN convolutional layers as generic feature extractors for new tasks.
+🖼️ ImageDataGenerator in Keras efficiently loads and preprocesses image data from directories for training and validation.
+🧱 The base pre-trained model (Xception) is loaded without its top dense layers and frozen to prevent retraining.
+📊 Global average pooling converts convolutional 3D feature maps into 1D vector representations.
+🧠 A new dense classification layer is added on top to predict classes specific to the new dataset.
+⚙️ Adam optimizer and categorical cross-entropy loss are used to compile the model for multi-class classification.
+📉 Training and validation accuracy curves reveal model fitting trends and the onset of overfitting.
