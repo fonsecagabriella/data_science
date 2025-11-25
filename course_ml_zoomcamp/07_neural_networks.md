@@ -81,3 +81,60 @@ The training setup involves compiling the model with the Adam optimizer, categor
 🧠 A new dense classification layer is added on top to predict classes specific to the new dataset.
 ⚙️ Adam optimizer and categorical cross-entropy loss are used to compile the model for multi-class classification.
 📉 Training and validation accuracy curves reveal model fitting trends and the onset of overfitting.
+
+## Callbacks - checkpoints
+
+```python
+# wish checkpoints we can save the best model during training
+# otherwise the last model is saved, and it might not be the best one
+
+# The checkpoint is created with a callback
+checkpoint = keras.callbacks.ModelCheckpoint(
+    'xception_v1_{epoch:02d}_{val_accuracy:.3f}.h5',
+    save_best_only=True,
+    monitor='val_accuracy',
+    mode='max' # to maximise
+)
+
+history = model.fit(
+    train_ds,
+    epochs=10,
+    validation_data=val_ds,
+    callbacks=[checkpoint] # here we pass the checkpoint callback
+)
+```
+
+## Activation functions
+Every layer in the neural network needs an activation function; the activation function is nothing more than the processing of the data.
+
+Some types of activation functions are:
+
+- Sigmoid
+- Softmax
+- Relu
+
+**NOTE:** When we use `from_logits=True` in the loss function, we don't need to use activation because it implies `activation=softmax` and the processinf is quicker.
+
+## Adding more layers
+
+Adding more layers between the vector and the output can improve the performance of the model.
+
+
+## Regularisation and dropout
+- **Dropout**: During certain iterations we  'freeze' different parts of the network, so the weights do not change. This can help with generalisation.
+    - If you're adding dropout you might need to tweak the number of epochs, since you're actively 'removing' part of the net, more epochs might be needed.
+
+## Data augmentation
+
+Data augmentation is essentially creating more data from existing data.
+You should look at the dataset, and ask yourself what kinds of variations are there, and how possible transformations could help the training.
+
+You can treat transformations as a hyperparameter. Try with some epochs, if the model is not improving, then drop the transformations. 
+
+Possible transformations:
+
+- Flip it (horizontally and vertically)
+- Rotate
+- Shift
+- Shear
+
