@@ -28,3 +28,6 @@ ve_ml2/*
 # Docker / system
 .DS_Store
 *.log
+
+# Zoomcamp homework files
+course_ml_zoomcamp/homework/data/*
