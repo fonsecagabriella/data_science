@@ -45,3 +45,24 @@ ___“ML algorithms don’t predict the future, but encode the past, thus perpet
 - NoSQL (not only SQL)
 - Graph
 
+## Training Data
+
+### Sampling
+
+- Non-probability sampling: isn't based on any probability criteria
+    - Convenience sampling
+    - Snowball sampling
+    - Judgment sampling
+    - Quote sampling
+- Probabilistic sampling
+    - Simple random sampling
+    - Stratified sampling
+    - Weighted sampling
+    - Reservoir sampling: commonly used in streaming/production
+    - Importance sampling
+
+### Labelling
+
+- It's important to keep a `data lineage` log, so you know if you train your model with new data, and the performance declines, it could a problem in the annotation of the new data
+
+- **Pertubation-based** method: You add some pertubation to the data, but that should not change its label. Used to generate more data.
