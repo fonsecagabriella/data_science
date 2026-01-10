@@ -66,3 +66,16 @@ ___“ML algorithms don’t predict the future, but encode the past, thus perpet
 - It's important to keep a `data lineage` log, so you know if you train your model with new data, and the performance declines, it could a problem in the annotation of the new data
 
 - **Pertubation-based** method: You add some pertubation to the data, but that should not change its label. Used to generate more data.
+
+### Class imbalance
+
+- Class imbalance also happens with regression tasks; you might need to make your model be better at predicting the 90th or 95th percentile even if that harms overall metrics (because if you're prediciting hospital bills, for example, a 100% increase in a bill might be too much to handle)
+
+- Need to think about the cost of wrong prediciton for majority class agains the cost of wrong predicition for the classes that show up less often
+
+- Class imbalance is more prpblematic for complex problems, and usually doesn't impact too much problems that are less complex
+
+- How to tackle imbalance:
+    - Choose right metrics: the class that appears more often might not be one you care the most about
+    - Data-level methods (resampling): Remove randomly instances from majority class or add instance of minority class so the model can learn better; if you resample, you can't evaluate performance on re-sample data as that will give you a wrong idea. There are many algorithms that tackle this approach, search for it when needed.
+    - Algorithm-level methods: Altering the loss function; Some examples are cost-sensitive learning, class-balance loss, focal loss.
