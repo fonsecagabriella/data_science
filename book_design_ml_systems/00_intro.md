@@ -67,6 +67,8 @@ ___“ML algorithms don’t predict the future, but encode the past, thus perpet
 
 - **Pertubation-based** method: You add some pertubation to the data, but that should not change its label. Used to generate more data.
 
+- **Natural labels** are labels that come from natural activities, and don't need explicitly label (for example, if you have a recommendation system, label 1 happens if someone clicked on the recommendation, and 0 otherwise)
+
 ### Class imbalance
 
 - Class imbalance also happens with regression tasks; you might need to make your model be better at predicting the 90th or 95th percentile even if that harms overall metrics (because if you're prediciting hospital bills, for example, a 100% increase in a bill might be too much to handle)
@@ -79,3 +81,11 @@ ___“ML algorithms don’t predict the future, but encode the past, thus perpet
     - Choose right metrics: the class that appears more often might not be one you care the most about
     - Data-level methods (resampling): Remove randomly instances from majority class or add instance of minority class so the model can learn better; if you resample, you can't evaluate performance on re-sample data as that will give you a wrong idea. There are many algorithms that tackle this approach, search for it when needed.
     - Algorithm-level methods: Altering the loss function; Some examples are cost-sensitive learning, class-balance loss, focal loss.
+
+### Data Augmentation
+
+- Simple label-preserving transformations: altering the data but preserving its label. For images, you can crop, flip, rotate, invert horizontally or vertically; for text, you can replace a word in the sentence with another word of same meaning.
+
+- Pertubation: adding some noise to the data without changing its label (a little noise shouldn't influence the label)
+
+- Data Synthesis: Use a script of rule to create new data points
