@@ -94,6 +94,26 @@ ___“ML algorithms don’t predict the future, but encode the past, thus perpet
 
 - Having a good set of features usually outperforms parameter tunning.
 
+- Split data by time into train/valid/test splits instead of doing it randomly.
+
+- If you oversample your data, do it after splitting.
+
+- Scale and normalize your data after splitting to avoid data leakage.
+
+- Use statistics from only the train split, instead of the entire data, to scale your features and handle missing values.
+
+- Understand how your data is generated, collected, and processed. Involve domain experts if possible.
+
+- Keep track of your data’s lineage.
+
+- Understand feature importance to your model.
+
+- Use features that generalize well.
+
+- Remove no longer useful features from your models.
+
+- Really cool to understand how features influence the model [InterpretML](https://github.com/interpretml/interpret?tab=readme-ov-file)
+
 ### Common Feature Engineering Operations
 
 - **Missing values**: You can either *delete* or *imput* but first, you need to understand the type of data that is missing to avoid biases or issues with the model.
@@ -109,3 +129,27 @@ ___“ML algorithms don’t predict the future, but encode the past, thus perpet
 - **Discretisation (quantisation or binning)**: Rarely helps; it menas turning a continuous feature into a discrete one.
 
 - **Enconding categorical features**: For production systems with a lot of new data, this can be tricky.  If you come across this, look into 'hashing trick'(especially Vowpal Wabbit, developed at Microsoft)
+
+- **Feature crossing**: Useful to model nonlinear relationships (for example, *married with number of children* might be likely to buy a house); more useful for models that are bad in non-linear relationships (like linear/logistic and tree-models), less useful for NN. 
+
+- **Positioning embedding**: Used in computer vision and NLP.
+
+### Data Leakage
+
+When information is available during training but not during prediciton; for example, during covid models learned to predict if a patient was very sick based on the font-type of their scans; which is non-sense and also not replicable into real case predictions.
+
+Causes and solutions:
+
+- Splitting by time: Instead of just randomly splitting data into train and test, for time-series data you need to split by time; for example, use day 1, 2, 3, 4 to train and predict day 5.
+
+- Splitting it first: Split your data first before scaling, then use the stats from the train to scale all the splits; Some suggest to split all data before exploratory data analysis and preprocessing, so we don't get accidentaly get information that is not available in production or over the test split.
+
+- Filling in data with statistics from the test splot: don't do this; if you are filling NA use values from the train split only.
+
+- Duplicated data needs to be treated/removed (check this especially if you did oversampling)
+
+- Group leakage: when the data is slightly different, but has the same label (for example, two cancer scans taken 2 weeks apart but with the same label; a camera detector); this is hard to detect if you don't know how your data is originated. 
+
+- Ablation studies: They are useful to understand how much one feature influence your model; if you remove that feature and your model performance changes drastically, you need to investigate why (also if a new feature makes your model much better, you need to investigate if that is due to data leakage)
+
+## Model Development and Offline Evaluation
