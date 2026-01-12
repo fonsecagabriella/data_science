@@ -89,3 +89,23 @@ ___“ML algorithms don’t predict the future, but encode the past, thus perpet
 - Pertubation: adding some noise to the data without changing its label (a little noise shouldn't influence the label)
 
 - Data Synthesis: Use a script of rule to create new data points
+
+## Feature Engineering
+
+- Having a good set of features usually outperforms parameter tunning.
+
+### Common Feature Engineering Operations
+
+- **Missing values**: You can either *delete* or *imput* but first, you need to understand the type of data that is missing to avoid biases or issues with the model.
+    - Missing not a random: deliberately not shared
+    - Missing at random: when one value is missing and corresponds to a "class", or another value that is present
+    - Missing completely at random: no pattern why the value is missing
+
+- **Scaling**: You always have to look at the distribution (statistics) if you feed the model new data; if the stats are very different than the ones you trained your model, you might need to retrain now with all the data; Types of scaling are:
+    - Normalisation (between 0 and 1) or between (-1 and 1)
+    - Standardisation: if your distribution follows a normal distribution
+    - Log transformation: if you have very skewed data
+
+- **Discretisation (quantisation or binning)**: Rarely helps; it menas turning a continuous feature into a discrete one.
+
+- **Enconding categorical features**: For production systems with a lot of new data, this can be tricky.  If you come across this, look into 'hashing trick'(especially Vowpal Wabbit, developed at Microsoft)
