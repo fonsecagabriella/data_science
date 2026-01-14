@@ -153,3 +153,20 @@ Causes and solutions:
 - Ablation studies: They are useful to understand how much one feature influence your model; if you remove that feature and your model performance changes drastically, you need to investigate why (also if a new feature makes your model much better, you need to investigate if that is due to data leakage)
 
 ## Model Development and Offline Evaluation
+
+- Resource: [AutoML - Auto parameter optimisation](./AutoML_Book_Chapter1.pdf)
+
+### Ensemble
+
+- [Kaggle ensemble guide](https://github.com/MLWave/Kaggle-Ensemble-Guide)
+
+- Not usually used in production due to complexity and latency
+
+- Can help with class imbalance, especially together with resampling (boosting and bagging)
+
+- Types:
+    - **Bagging** (bootstrap aggregating): reduces variance and helps with overfitting; sample with replacement instead of training whole dataset. A random forest is an example of bagging.
+    - **Boosting**: convert weak learners into strong ones.
+    - **Stacking**: create base learners and then create a meta-learner that combines the outputs from the base learners for a final prediction.
+
+
