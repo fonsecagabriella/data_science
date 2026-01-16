@@ -170,3 +170,27 @@ Causes and solutions:
     - **Stacking**: create base learners and then create a meta-learner that combines the outputs from the base learners for a final prediction.
 
 
+### Model offline evaluation
+
+- Ideally you'd use the same metrics in production and development, but in development you have metrics that in production you don't (if the model is to detect attack, how would you know in production that you actually got all the attacks?)
+
+- Evaluation metrics without a baseline do not mean anything. Types of baseline that can be useful:
+    - Random baseline: from uniform distribution (predicting each label with equal probability) or task's label distribution 
+    - Simple heuristic
+    - Zero rule baseline: always predicts the most common class
+    - Human baseline: is it better than what a human alone could achieve?
+    - Existing solutions: how does it compare with existing / current solution?
+
+### Evaluation methods
+
+- **Pertubation tests:** the data your model has to work with in production are usually more 'noisy' compared to what you have in development; you might want to add some pertubation to your test sets to get a better sense of how your model would actually perform in production. The more sensitive to noise your model is, the harder will be to maintain it.
+
+- **Invariance tests:** keep the input the same, but change sensitive information to see if the output changes (for example, race, gender, etc); another alternative: exclude sensitive information from training
+
+- **Directional expectation tests:** Some changes to input are expected to change the output (if you increase the lot size of a house, its price should increase). Test these scenarios.
+
+- **Model calibration:** For example, change 0.5 default prediction to another value; another example: user watches 80% sci-fi and 20% comedy: the system should show recommendations with that in mind, not 100% sci-fi because user watches mostly sci-fi. In sci-ki learn you can use `sklearn.calibration.calibration_curve`.
+
+- **Confidence measurement**: Confidence of measurement of each sample.
+
+- **Slice-based evaluation**: slice your data, also considering the groups within it, and check how your model performs. First identify your critical slices (for example, mobile vs desktop, locations, gender, etc)
