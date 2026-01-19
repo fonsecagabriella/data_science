@@ -194,3 +194,44 @@ Causes and solutions:
 - **Confidence measurement**: Confidence of measurement of each sample.
 
 - **Slice-based evaluation**: slice your data, also considering the groups within it, and check how your model performs. First identify your critical slices (for example, mobile vs desktop, locations, gender, etc)
+
+## Model Deployment and Prediction Service
+
+- Exporting a model means converting it into a format that be used by other applications (also called serialisation)
+
+- Inference: the process of generating predictions
+
+- There are two parts of the model that you can export:
+    - The model definitions
+    - The model parameter's values
+
+- Online prediction (on demand prediction) are generated as soon as the requests for the predictions arrive;
+
+- Batch predictions are asynchronous; they are made and stored. The name can be confusing because both online and batch predicitons can be predictions on batches of data.
+
+- How to make your model predict faster:
+    - Model compression (make the model smaller)
+    - Inference optimisation (make the predictions being generated faster)
+
+- You can compute the output of your model:
+    - On the cloud
+    - On the Edge (predictions are made using user's computer, like browser, cameras, robots, etc)
+
+### Important basis
+
+- A company might have hundreds of models in production at the same time;
+- Model performance decays over time, especially when the distribution of data changes;
+- Models should be retrained with great frequency (sometimes even hourly);
+
+### Main modes of prediction
+
+- **Batch prediction**: uses only batch features
+- **Online prediction with batch only**: uses only batch features (pre-computed embeddings)
+- **Streaming prediction**: Online prediction with both batch features and streaming features.
+
+| | Batch prediction (asynchronous) | Online prediction (synchronous) |
+| :--- | :--- | :--- |
+| **Frequency** | Periodical, such as every four hours | As soon as requests come |
+| **Useful for** | Processing accumulated data when you don't need immediate results (such as recommender systems) | When predictions are needed as soon as a data sample is generated (such as fraud detection) |
+| **Optimized for** | High throughput | Low latency |
+
