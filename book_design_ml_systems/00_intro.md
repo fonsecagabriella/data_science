@@ -235,3 +235,8 @@ Causes and solutions:
 | **Useful for** | Processing accumulated data when you don't need immediate results (such as recommender systems) | When predictions are needed as soon as a data sample is generated (such as fraud detection) |
 | **Optimized for** | High throughput | Low latency |
 
+## Data Distribution Shifts and Monitoring
+
+- ML pipelines mostly fail due to non-ML issues, which also requires software engineering skills from ML engineers
+
+- Edge cases are the data samples that are so extreme that cause a model to make very biggit a mistakes.
