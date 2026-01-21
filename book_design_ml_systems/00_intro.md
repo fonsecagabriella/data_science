@@ -240,3 +240,5 @@ Causes and solutions:
 - ML pipelines mostly fail due to non-ML issues, which also requires software engineering skills from ML engineers
 
 - Edge cases are the data samples that are so extreme that cause a model to make very biggit a mistakes.
+
+- **Degenerate feedback loops:** happens when a prediction influence the feedback, which in turn, influences the next iteration of the model (the system output is used as a system input, and the influences future outputs - especially common in natural labels tasks). It happens often with recommender systems and needs to be tackled (*does the user click on the recommended song in 1st position because it's a good recommendation or because it's in the 1st position*)
