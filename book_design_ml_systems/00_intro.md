@@ -242,3 +242,13 @@ Causes and solutions:
 - Edge cases are the data samples that are so extreme that cause a model to make very biggit a mistakes.
 
 - **Degenerate feedback loops:** happens when a prediction influence the feedback, which in turn, influences the next iteration of the model (the system output is used as a system input, and the influences future outputs - especially common in natural labels tasks). It happens often with recommender systems and needs to be tackled (*does the user click on the recommended song in 1st position because it's a good recommendation or because it's in the 1st position*)
+
+### Data Distribution Shifts
+ - Source distribution: the data the model is trained on
+
+ - Target distribution: the data the model makes inferences on
+ 
+ - There are different types of shifts, but usually ML people only care how to fix them as they require math/probability specific knowledge. Types of shifts:
+    - Covariate shift: Happens when P(X) changes but P(Y|X) remains the same; very common with unbalanced classes, for example;
+    - Label shift: When P(Y) changes but (P(X|Y)) remains the same
+    - Concept drift: When P(Y|X) changes by P(X) remains the same (same input, different output; are usually seasonal or cyclic)
