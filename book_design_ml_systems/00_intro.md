@@ -252,3 +252,17 @@ Causes and solutions:
     - Covariate shift: Happens when P(X) changes but P(Y|X) remains the same; very common with unbalanced classes, for example;
     - Label shift: When P(Y) changes but (P(X|Y)) remains the same
     - Concept drift: When P(Y|X) changes by P(X) remains the same (same input, different output; are usually seasonal or cyclic)
+
+### Detecting distribution shifts
+
+- You can track performance, but it's also important to track how the distribution of features in production change
+
+- When training your model,  you need to make a trade-off between the performance and stability of a feature: a feature might have great predicitable power, but might change very often (for example, lists on top 1 will get clicked on more because they are first, but the top 1 changes quickly; it could be better in this case to have the position in buckets, like top 10, top 100, etc)
+
+Some methods of detecting shifts:
+
+- **Statistical methods**: compare metrics like median, mean, variance, min, max, various quartiles, skewness, kurtosis. You can also use two-sample test to see if the difference between two samples is statistically significant (a basic KS-test can be a good fit here, because it's non-parametric, but it only works with one-dimensional data, scalar features)
+
+<img src="./imgs/dist-shits.png" width="50%">
+
+- **Time scale window for shifts**: it's important, albeit difficult, to consider the time window of your data. If your data have a window of 14 days, day 15 might look like a shift, while it's just the beginning of the cycle. If your data has time shift, you need to track sliding statistics, or you may miss shifts
