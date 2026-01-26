@@ -265,4 +265,18 @@ Some methods of detecting shifts:
 
 <img src="./imgs/dist-shits.png" width="50%">
 
-- **Time scale window for shifts**: it's important, albeit difficult, to consider the time window of your data. If your data have a window of 14 days, day 15 might look like a shift, while it's just the beginning of the cycle. If your data has time shift, you need to track sliding statistics, or you may miss shifts
+- **Time scale window for shifts**: it's important, albeit difficult, to consider the time window of your data. If your data have a window of 14 days, day 15 might look like a shift, while it's just the beginning of the cycle. If your data has time shift, you need to track sliding statistics, or you may miss shifts.
+
+## Continal Learning and Test in Production
+
+- Catastrophic forgetting: when a neural network forgets a past pattern upon learning a new pattern
+
+- Stateless retraining: the model is trained from scratch each time
+
+- Stateful learning: finetuning / incremental learning; the model continues training on new data
+
+- Stateful training can be more efficient in terms of computer resource, but also help on the challenging of not neededing to store data (which can be a problem considering privacy regulations). Can be especially useful for 'rare events'(like black friday, or when there's an event in a neighbourhood that is usually quiet, but because of the event, will need more drivers)
+
+- You don't have to pick stateless OR stateful; they can and should be used in combination
+
+- Continuous cold start problem: make predictions for a user when there's no historical data
