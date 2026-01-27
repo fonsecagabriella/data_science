@@ -280,3 +280,19 @@ Some methods of detecting shifts:
 - You don't have to pick stateless OR stateful; they can and should be used in combination
 
 - Continuous cold start problem: make predictions for a user when there's no historical data
+
+- How often to update your model: The more gain your model can get with fresh data, the more if should be updated (you can also run tests with the data you already have on these)
+    - Time-based
+    - Performance-based
+    - Volume-based (of new data)
+    - Drift-based
+
+- Types of test in production:
+    - Shadow deployment: Serve the two models, but log the results of candidate model and show the results to user from original model. Both predictions are them compared to see which one is better; rarelu used because of the inference cost for two models
+    - A/B tests: Traditional A/B test; make sure the samples are truly random
+    - Canary release: Roll candidate model in a smaller portion of traffic; increase slowly if works or abort if performance gets worse; can also be rolled out first in markets that are less important and then to more important ones.
+    - Interleaving experiments: You serve the inferences of two models at the same time, and compare the results (which ones were actually clicked?). You still need to account for the position the results will be shown (this is called interleaving team draft).
+
+    <img src="./imgs/ab_interleaving.png" width="60%">
+
+    - Bandits: Bandit algorithms drive a (larger) percentage of traffic to the model that is known to perform better at that moment. They are more complicated to be implemented due to complexity and computational power, so if needed, research more into the topic. Contextual badit models can be used to get feedback (exploration strategy)
