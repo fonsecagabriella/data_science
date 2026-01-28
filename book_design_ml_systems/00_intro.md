@@ -296,3 +296,36 @@ Some methods of detecting shifts:
     <img src="./imgs/ab_interleaving.png" width="60%">
 
     - Bandits: Bandit algorithms drive a (larger) percentage of traffic to the model that is known to perform better at that moment. They are more complicated to be implemented due to complexity and computational power, so if needed, research more into the topic. Contextual badit models can be used to get feedback (exploration strategy)
+
+## Infrastructure and Tooling for MLOps
+
+- Dev envs should be standard, if no across company, at least across team; 
+
+- A **docker image** is a a 'recipe' that creates a **'docker container'**; you can have different containers based on your needs (if you need a lot of memory for features work, but less for training, you could split the work into two containers for more efficiency); **'Docker compose'** orchestrates containers on the same host.
+
+- **Kubernetes (K8s)** is used when containers have to run in different hosts. It creates a network of containers to communicate and share resources. | [Intro to Kubernetes](https://www.jeremyjordan.me/kubernetes/)
+
+- **Cron**: scheduling repetitive jobs to run at fixed times (it doesn't do logic - ie. do C if A fails; only runs B after A.)
+
+- When you have dependencies between tasks, you have a DAG. Note the tasks are not 'cyclical', so it doesn't run forever. When you have this logic, you are working with **schedulers**, cron programmes that can handle dependencies; the scheduler also needs to account for the resources available and needed to run the **job**. 
+
+<img src="./imgs/dag.png" width="50%">
+
+- **Schedulers** are concerned with WHEN to run a job; **Orchestrators** are concerned with WHERE to get the resources needed.
+
+- Data Science workflow management
+
+<img src="./imgs/ds-workflow.png" width="50%">
+
+- **Model Store**: a few things you might to store for the model:
+    - Model definition: shape of the model, which loss function it uses, etc
+    - Model parameters
+    - Featurize and predict functions
+    - Dependencies
+    - Data: pointers to where data is stored, with its version
+    - Model generation code 
+    - Experiments artifacts
+    - Tags (ie, owner, business problem, etc)
+    
+
+
