@@ -326,6 +326,62 @@ Some methods of detecting shifts:
     - Model generation code 
     - Experiments artifacts
     - Tags (ie, owner, business problem, etc)
-    
 
+## The Human Side of ML
 
+- Challenges for Ml systems and UX: ML is probabilistic, and users expect deterministic (stable / consistent) reults
+
+- Speed-accuracy trade-off: a model might have higher accuracy but the other model might make inferences much faster, and so be a better option
+
+### A Framework for Responsible AI
+
+- **Training data**: is your data a good representation of real data?
+
+- **Labeling**: if it relies on human annotation, did you check for biases?
+
+- **Feature engineering**: It's important to mitigate biases in AI. [AI Fairness 360](https://aif360.readthedocs.io/en/latest/Getting%20Started.html) is a library that can help identify features with Disparate Impact (that can influence the model outcome a lot, and so creating biases - ie, gender, zip code, etc.)
+
+- **Model objective**: is your model using an objective that is fair for all users?
+
+- **Evaluation**: are you performing adequate, fine-grained evaluation to understand model performance on different groups of users?
+
+#### **Model Cards for Model Reporting
+
+- **Model details**: Basic information about the model.
+    - Person or organization developing model
+    - Model date
+    - Model version
+    - Model type
+    - Information about training algorithms, parameters, fairness constraints or other applied approaches, and features
+    - Paper or other resource for more information
+    - Citation details
+    - License
+    - Where to send questions or comments about the model
+
+- **Intended use:** Use cases that were envisioned during development.
+    - Primary intended uses
+    - Primary intended users
+    - Out-of-scope use cases
+
+- **Factors**: Factors could include demographic or phenotypic groups, environmental conditions, technical attributes, or others.
+    - Relevant factors
+    - Evaluation factors
+
+- **Metrics**: Metrics should be chosen to reflect potential real-world impacts of the model.
+    - Model performance measures
+    - Decision thresholds
+    - Variation approaches
+
+- **Evaluation data**: Details on the dataset(s) used for the quantitative analyses in the card.
+   - Datasets
+    - Motivation
+    - Preprocessing
+
+- **Training data**: May not be possible to provide in practice. When possible, this section should mirror Evaluation Data. If such detail is not possible, minimal allowable information should be provided here, as details of the distribution over various factors in the training datasets.
+
+- **Quantitative analyses**
+    - Unitary results
+    - Intersectional results
+
+- Ethical considerations
+- Caveats and recommendations
