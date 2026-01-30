@@ -12,6 +12,40 @@
 
 ___“ML algorithms don’t predict the future, but encode the past, thus perpetuating the biases in the data and more”__
 
+
+
+## Index
+
+- [Introduction](#introduction)
+- [Data Engineering Fundamentals](#data-engineering-fundamentals)
+  - [Data formats](#data-formats)
+  - [Data models](#data-models)
+- [Training Data](#training-data)
+  - [Sampling](#sampling)
+  - [Labelling](#labelling)
+  - [Class imbalance](#class-imbalance)
+  - [Data Augmentation](#data-augmentation)
+- [Feature Engineering](#feature-engineering)
+  - [Common Feature Engineering Operations](#common-feature-engineering-operations)
+  - [Data Leakage](#data-leakage)
+- [Model Development and Offline Evaluation](#model-development-and-offline-evaluation)
+  - [Ensemble](#ensemble)
+  - [Model offline evaluation](#model-offline-evaluation)
+  - [Evaluation methods](#evaluation-methods)
+- [Model Deployment and Prediction Service](#model-deployment-and-prediction-service)
+  - [Important basis](#important-basis)
+  - [Main modes of prediction](#main-modes-of-prediction)
+- [Data Distribution Shifts and Monitoring](#data-distribution-shifts-and-monitoring)
+  - [Data Distribution Shifts](#data-distribution-shifts)
+  - [Detecting distribution shifts](#detecting-distribution-shifts)
+- [Continal Learning and Test in Production](#continal-learning-and-test-in-production)
+- [Infrastructure and Tooling for MLOps](#infrastructure-and-tooling-for-mlops)
+- [The Human Side of ML](#the-human-side-of-ml)
+  - [A Framework for Responsible AI](#a-framework-for-responsible-ai)
+    - [Model Cards for Model Reporting](#model-cards-for-model-reporting)
+
+
+
 ## Introduction
 
 - Companies don't care about fancy ML metrics; they care about business metrics (maximise profits)
