@@ -1,6 +1,12 @@
 # Designing Machine Learning Systems
 
+📚 [Book: Designing Machine Learning Systems](https://www.oreilly.com/library/view/designing-machine-learning/9781098107956/)
+
 👩🏽‍💻 [Github repo](https://github.com/chiphuyen/dmls-book)
+
+👾 *Finished reading in January, 2026*
+
+<img src="./imgs/book-designing-ml-systems.png" width="30%">
 
 > Machine learning is an approach to **learn complex patterns from existing data** and use these patterns to **make predictions on unseen data**.
 
