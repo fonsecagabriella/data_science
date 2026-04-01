@@ -1,0 +1,309 @@
+
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: var(--font-sans); }
+.checklist { padding: 1rem 0; }
+.phase { margin-bottom: 1.5rem; }
+.phase-header { display: flex; align-items: center; gap: 10px; margin-bottom: 0.75rem; padding-bottom: 0.5rem; border-bottom: 0.5px solid var(--color-border-tertiary); }
+.phase-num { width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 500; flex-shrink: 0; }
+.phase-title { font-size: 15px; font-weight: 500; color: var(--color-text-primary); }
+.item { display: flex; gap: 10px; padding: 8px 0; border-bottom: 0.5px solid var(--color-border-tertiary); }
+.item:last-child { border-bottom: none; }
+.item-check { width: 16px; height: 16px; border: 0.5px solid var(--color-border-secondary); border-radius: 3px; flex-shrink: 0; margin-top: 2px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.15s; }
+.item-check.checked { background: #1D9E75; border-color: #1D9E75; }
+.item-check.checked::after { content: ''; display: block; width: 5px; height: 8px; border: 1.5px solid white; border-top: none; border-left: none; transform: rotate(45deg) translateY(-1px); }
+.item-body { flex: 1; }
+.item-label { font-size: 14px; color: var(--color-text-primary); line-height: 1.5; }
+.item-label.checked-text { color: var(--color-text-tertiary); text-decoration: line-through; }
+.item-tech { margin-top: 4px; font-size: 12px; color: var(--color-text-secondary); line-height: 1.6; }
+code { font-family: var(--font-mono); background: var(--color-background-secondary); padding: 1px 5px; border-radius: 3px; font-size: 11px; color: var(--color-text-secondary); }
+.badge { display: inline-block; font-size: 10px; font-weight: 500; padding: 1px 7px; border-radius: 20px; margin-right: 4px; }
+.badge-warn { background: #FAEEDA; color: #633806; }
+.badge-info { background: #E6F1FB; color: #0C447C; }
+.badge-ok { background: #EAF3DE; color: #27500A; }
+.progress-bar { height: 3px; background: var(--color-background-secondary); border-radius: 2px; margin-bottom: 1.5rem; }
+.progress-fill { height: 100%; background: #1D9E75; border-radius: 2px; transition: width 0.3s; }
+.progress-label { font-size: 12px; color: var(--color-text-secondary); text-align: right; margin-bottom: 0.5rem; }
+</style>
+
+<div class="checklist">
+  <p class="progress-label" id="prog-label">0 / 0 completed</p>
+  <div class="progress-bar"><div class="progress-fill" id="prog-fill" style="width:0%"></div></div>
+
+  <div id="phases"></div>
+</div>
+
+<script>
+const phases = [
+  {
+    num: 1, color: "#185FA5", bg: "#E6F1FB",
+    title: "Problem definition",
+    items: [
+      {
+        label: "Define the ML task type",
+        tech: "Classification, regression, clustering, ranking? This determines everything downstream.",
+        warn: null
+      },
+      {
+        label: "Choose and justify evaluation metrics before any modelling",
+        tech: "E.g. <code>accuracy</code>, <code>f1_score</code>, <code>roc_auc_score</code>, <code>mean_absolute_error</code>. Ask: does accuracy mislead on imbalanced classes? Use <code>sklearn.metrics</code>.",
+        warn: "gate"
+      },
+      {
+        label: "Define a dummy baseline",
+        tech: "<code>DummyClassifier(strategy='most_frequent')</code> or <code>DummyRegressor(strategy='mean')</code> from <code>sklearn.dummy</code>. All future models must beat this.",
+        warn: null
+      }
+    ]
+  },
+  {
+    num: 2, color: "#0F6E56", bg: "#E1F5EE",
+    title: "Data splitting",
+    items: [
+      {
+        label: "Set aside a hold-out test set immediately — never touch it again",
+        tech: "<code>train_test_split(stratify=y)</code> from <code>sklearn.model_selection</code>. For time-series use <code>TimeSeriesSplit</code>.",
+        warn: null
+      },
+      {
+        label: "Verify class distribution between train and test",
+        tech: "<code>df['target'].value_counts(normalize=True)</code>. For drift: <code>evidently</code> library or a simple KS test (<code>scipy.stats.ks_2samp</code>) on numeric features.",
+        warn: null
+      },
+      {
+        label: "Define cross-validation strategy for model selection",
+        tech: "<code>StratifiedKFold</code> for classification, <code>KFold</code> for regression. Keeps val set separate from test set — critical to avoid optimistic estimates.",
+        warn: "gate"
+      }
+    ]
+  },
+  {
+    num: 3, color: "#633806", bg: "#FAEEDA",
+    title: "Exploratory data analysis (EDA)",
+    items: [
+      {
+        label: "Audit data types and nulls",
+        tech: "<code>df.info()</code>, <code>df.isnull().sum()</code>, <code>df.dtypes</code>. Flag columns with >20% missing.",
+        warn: null
+      },
+      {
+        label: "Check target distribution",
+        tech: "<code>df['target'].value_counts()</code>, <code>sns.countplot()</code>. High imbalance → consider <code>class_weight='balanced'</code> or <code>SMOTE</code> later.",
+        warn: null
+      },
+      {
+        label: "Distributions and outliers for numeric features",
+        tech: "<code>df.describe()</code>, <code>sns.boxplot()</code>, <code>sns.histplot()</code>. IQR rule: flag values beyond 1.5×IQR.",
+        warn: null
+      },
+      {
+        label: "Compare features against target",
+        tech: "Numeric vs target: <code>sns.boxplot(x=target, y=feature)</code>. Categorical vs target: <code>pd.crosstab()</code> + <code>chi2_contingency</code> from <code>scipy.stats</code>.",
+        warn: null
+      },
+      {
+        label: "Correlations and feature relevance",
+        tech: "<code>df.corr()</code>, <code>sns.heatmap()</code>. For non-linear relevance: <code>mutual_info_classif</code> from <code>sklearn.feature_selection</code>.",
+        warn: null
+      },
+      {
+        label: "Note domain-specific risk patterns",
+        tech: "Free-text notes for later feature engineering. E.g. 'high value + new account = fraud signal'.",
+        warn: null
+      }
+    ]
+  },
+  {
+    num: 4, color: "#533AB7", bg: "#EEEDFE",
+    title: "Data preparation",
+    items: [
+      {
+        label: "Standardise column names and category values",
+        tech: "<code>df.columns = df.columns.str.lower().str.replace(' ','_')</code>. Category values: <code>df['col'].str.lower().str.strip()</code>.",
+        warn: null
+      },
+      {
+        label: "Handle missing values — fit only on train, apply to train+val+test",
+        tech: "Numeric: <code>SimpleImputer(strategy='median')</code>. Categorical: <code>SimpleImputer(strategy='most_frequent')</code>. Wrap in a <code>Pipeline</code> to prevent leakage.",
+        warn: "leak"
+      },
+      {
+        label: "Encode categoricals — fit only on train",
+        tech: "<code>OrdinalEncoder</code> for tree models, <code>OneHotEncoder</code> for linear models. Both from <code>sklearn.preprocessing</code>. Always inside a <code>Pipeline</code>.",
+        warn: "leak"
+      },
+      {
+        label: "Scale numeric features if model requires it",
+        tech: "<code>StandardScaler</code> or <code>MinMaxScaler</code>. Not needed for tree-based models. Fit on train only.",
+        warn: "leak"
+      },
+      {
+        label: "Wrap all steps in a reusable Pipeline",
+        tech: "<code>sklearn.pipeline.Pipeline</code> or <code>ColumnTransformer</code>. One object that preprocesses + models — guarantees same logic applies at inference.",
+        warn: null
+      }
+    ]
+  },
+  {
+    num: 5, color: "#3B6D11", bg: "#EAF3DE",
+    title: "Feature engineering",
+    items: [
+      {
+        label: "Add first-round features from EDA insights",
+        tech: "Ratios, bins (<code>pd.cut</code>, <code>pd.qcut</code>), date parts (<code>dt.dayofweek</code>), interaction terms.",
+        warn: null
+      },
+      {
+        label: "Add engineered features inside the Pipeline",
+        tech: "Use <code>FunctionTransformer</code> or a custom <code>BaseEstimator</code> + <code>TransformerMixin</code>. Keeps leakage impossible.",
+        warn: null
+      }
+    ]
+  },
+  {
+    num: 6, color: "#993C1D", bg: "#FAECE7",
+    title: "Baseline modelling",
+    items: [
+      {
+        label: "Set up experiment tracking before first run",
+        tech: "<code>mlflow.start_run()</code>, log params with <code>mlflow.log_param()</code>, metrics with <code>mlflow.log_metric()</code>. Every run is reproducible.",
+        warn: null
+      },
+      {
+        label: "Run 3–5 model families, compare on CV score",
+        tech: "<code>LogisticRegression</code>, <code>RandomForestClassifier</code>, <code>XGBClassifier</code>, <code>LGBMClassifier</code>. Use <code>cross_val_score</code> with your chosen metric.",
+        warn: null
+      },
+      {
+        label: "Select a model family to explore further",
+        tech: "Balance CV score, training time, and interpretability needs.",
+        warn: null
+      }
+    ]
+  },
+  {
+    num: 7, color: "#185FA5", bg: "#E6F1FB",
+    title: "Feature iteration",
+    items: [
+      {
+        label: "Inspect what the model learned before hyperparameter tuning",
+        tech: "<code>shap.TreeExplainer</code> + <code>shap.summary_plot()</code>, or <code>feature_importances_</code> from tree models. Catch surprising or leaky signals now.",
+        warn: "gate"
+      },
+      {
+        label: "Iterate on features, logging each experiment",
+        tech: "One change at a time. Log feature list as an MLflow artifact.",
+        warn: null
+      }
+    ]
+  },
+  {
+    num: 8, color: "#0F6E56", bg: "#E1F5EE",
+    title: "Hyperparameter tuning",
+    items: [
+      {
+        label: "Define search space and run optimisation",
+        tech: "<code>HyperOpt</code> with <code>fmin</code> + <code>tpe.suggest</code>, or <code>Optuna</code>. Use CV inside each trial — never eval on test.",
+        warn: null
+      },
+      {
+        label: "Log all trials",
+        tech: "MLflow auto-logging: <code>mlflow.sklearn.autolog()</code> or <code>mlflow.xgboost.autolog()</code>.",
+        warn: null
+      }
+    ]
+  },
+  {
+    num: 9, color: "#993556", bg: "#FBEAF0",
+    title: "Final evaluation",
+    items: [
+      {
+        label: "Evaluate once on the held-out test set",
+        tech: "One shot. If you loop back after seeing test results, your test set is contaminated.",
+        warn: "gate"
+      },
+      {
+        label: "Interpret final model",
+        tech: "<code>shap.TreeExplainer</code>, <code>permutation_importance</code> from <code>sklearn.inspection</code>. Document what drives predictions.",
+        warn: null
+      },
+      {
+        label: "Check for production concerns",
+        tech: "Inference time, model size (<code>pickle</code> / <code>joblib</code>), feature availability at serving time. Prefer simpler models unless gain justifies complexity.",
+        warn: null
+      }
+    ]
+  },
+  {
+    num: 10, color: "#5F5E5A", bg: "#F1EFE8",
+    title: "Ensemble (competitions only)",
+    items: [
+      {
+        label: "Try blending diverse model families",
+        tech: "<code>VotingClassifier</code> or manual weighted average. Diversity matters more than individual score.",
+        warn: null
+      },
+      {
+        label: "Try stacking with a meta-model",
+        tech: "<code>StackingClassifier</code> from <code>sklearn.ensemble</code>. Meta-model trained on out-of-fold predictions.",
+        warn: null
+      }
+    ]
+  }
+];
+
+const container = document.getElementById('phases');
+let allItems = [];
+
+phases.forEach((phase, pi) => {
+  const phaseEl = document.createElement('div');
+  phaseEl.className = 'phase';
+
+  phaseEl.innerHTML = `
+    <div class="phase-header">
+      <div class="phase-num" style="background:${phase.bg};color:${phase.color}">${phase.num}</div>
+      <div class="phase-title">${phase.title}</div>
+    </div>
+  `;
+
+  const itemsEl = document.createElement('div');
+  phase.items.forEach((item, ii) => {
+    const id = `item-${pi}-${ii}`;
+    allItems.push(id);
+    const div = document.createElement('div');
+    div.className = 'item';
+
+    let badge = '';
+    if (item.warn === 'leak') badge = '<span class="badge badge-warn">leakage risk</span>';
+    if (item.warn === 'gate') badge = '<span class="badge badge-info">decision gate</span>';
+
+    div.innerHTML = `
+      <div class="item-check" id="check-${id}" onclick="toggle('${id}')"></div>
+      <div class="item-body">
+        <div class="item-label" id="label-${id}">${badge}${item.label}</div>
+        <div class="item-tech">${item.tech}</div>
+      </div>
+    `;
+    itemsEl.appendChild(div);
+  });
+  phaseEl.appendChild(itemsEl);
+  container.appendChild(phaseEl);
+});
+
+function toggle(id) {
+  const check = document.getElementById('check-' + id);
+  const label = document.getElementById('label-' + id);
+  check.classList.toggle('checked');
+  label.classList.toggle('checked-text');
+  updateProgress();
+}
+
+function updateProgress() {
+  const checked = document.querySelectorAll('.item-check.checked').length;
+  const total = allItems.length;
+  document.getElementById('prog-label').textContent = `${checked} / ${total} completed`;
+  document.getElementById('prog-fill').style.width = `${Math.round(checked/total*100)}%`;
+}
+
+updateProgress();
+</script>
