@@ -33,7 +33,7 @@
 
 - Note: Data engineers usually work on the top level, but understanding what is underneath has impact on latency, availability and cost
 
-## Queries, modeling and transformation
+## Queries, modelling and transformation
 
 - Query: Issue a request to read records from a database or other storage systems
     - Poor written requires cause raw explosion and lead to bad performance
@@ -48,4 +48,63 @@
 - Machine Learning
 - Reverse ETL
 
-## Intro to Undercurrents
+## Undercurrent
+
+A set of practices that fall under the basis of the data engineering lifecycle.
+They are covered below:
+
+### Security
+
+- **Principle of Least Privilege**: Only give access to what people really need, and for the duration they need it. This applies to users, but also to the data engineer.
+
+- Do not ingest sensitive data, unless you really need it.
+
+- Apply a **defensive mindset**: Be cautious with sensitive data, and design for potential attacks.
+
+### Data management
+
+- Ensure quality, integrity, security and usability of the data.
+
+- Quality data: Accurate, complete, discoverable, available in timely manner; it is in a format that is exactly what stakeholders expect.
+
+<img src="./imgs/data_management.png">
+
+### Data architecture
+
+- Design of systems to support the evolving data needs of an organization, achieved by flexible and reversible decisions reached through a careful evaluation of trade-offs.
+
+- Principles:
+    - Choose common components wisely
+    - Plan for failure
+    - Architect for scalability
+    - Architecture is leadership
+    - Always be architecting
+    - Build loosely coupled systems
+    - Make reversible decision
+    - Prioritise security
+
+### DataOps
+
+- Improves the development process and quality of data products; it's a set of cultural habits.
+
+- Pillars:
+    - Automation: CI/CD
+    - Observability & Monitoring
+    - Incident response
+
+### Orchestration
+
+- A data pipeline has a lot of moving parts that need to work together to achieve good results.
+
+- DAG: Directed Acyclic Graph
+    - Directed: Data flows in one direction
+    - Acyclic: Data doesn't flow back
+    - Graph: composed of nodes and edges
+
+### Software engineering
+
+- Design, development, deployment and maintenance of software applications.
+
+## Practical examples on AWS
+
+- Amazon DynamoDB: Low latency to large volumes of data (games, iOT), flexible schema
