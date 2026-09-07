@@ -1,5 +1,7 @@
 # C1M3 - Data Architecture
 
+- Enterprise architecture is the design of systems to support change in an enterprise, achieved by flexible and reversible decisions reached through a careful evaluation of trade-offs.
+
 - Conway's Law: Any organisation that designs a system will produce a design whose structure is a copy of the organisation's communication structure.
 
 ## Principles of good data architecture
