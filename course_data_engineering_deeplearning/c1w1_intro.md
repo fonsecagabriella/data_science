@@ -5,6 +5,12 @@
 <img src="./imgs/data_engineering_lifecycle.png">
 
 
+## The Big 3 Vs of big data:
+    - Velocity
+    - Variety
+    - Volume
+
+
 ## Stakeholders needs 
 
 - Downstream stakeholders: Analysts (*How data we serve generates value for the org?*)
