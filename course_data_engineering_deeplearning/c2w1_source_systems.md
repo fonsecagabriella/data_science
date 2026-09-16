@@ -16,7 +16,7 @@
     - Non-relational databases (NoSQL)
 
 - Files (unstructured or semi-structured)
-    - A file is a sequency of bytes that represent information
+    - A file is a sequence of bytes that represent information
 
 - Streaming systems (semi-structured)
     - Continuous flow of data
@@ -70,3 +70,25 @@
 
 - If you relax some of these constraints, you can achieve more flexibility but you need to know what you're trading
 
+## Object Storage
+
+- Treats data with no hierarchy, the UI feature of creating folders is just visual.
+
+- Good repository for semi-structured and unstructured data
+
+- Good for serving data for ML models
+
+- Each object has a UUID key (universal unique identifier) and meta keys
+
+- Objects are immutable (do not support CRUD);
+    - If an object is updated it gets a new ID, and you can also use a meta key for version
+
+- Easily scale
+
+- Flexibility to store several data formats
+
+- Replicate data across several availability zones
+
+- Often cheaper than other storage options, especially for data that do not need to be accessed often
+
+## Logs
