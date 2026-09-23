@@ -92,3 +92,12 @@
 - Often cheaper than other storage options, especially for data that do not need to be accessed often
 
 ## Logs
+
+- User activity
+
+- Errors
+
+- Updates on DB
+
+- They can be used in analysis of user behaviour patterns, ML learning for anomaly detection, among others
+
