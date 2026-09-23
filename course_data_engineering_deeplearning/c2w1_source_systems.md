@@ -106,7 +106,7 @@
 
 - Often the terms `event` and `message` are used interchangedbly
 
-- Message Queue: FIFO basis; A buffer that accumulates messages and delivers those messages to consumers Asynchornously
+- Message Queue: FIFO basis; A buffer that accumulates messages and delivers those messages to consumers Asynchronously
 
 - Event Streaming Platform: Log, append-only record of events; possible to replay or reprocess any events in the log.
 
