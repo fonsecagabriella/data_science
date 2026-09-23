@@ -13,7 +13,7 @@
 
 - Lambda: Servelss piece of code
 
-- - Amazon EMR is specifically built for massive big data processing (Hadoop, Spark, Trino, etc.),
+- Amazon EMR is specifically built for massive big data processing (Hadoop, Spark, Trino, etc.),
 
 - AWS Glue ETL is a fully managed, serverless ETL service that abstract away infrastructure management (provisioning, configuring, and scaling clusters), making it significantly more convenient for standard ETL pipelines.
 
@@ -31,6 +31,9 @@
 
 - Amazon DynamoDB: Database that stores key-values
 
+- boto3: AWS SDK for Python
+
+- - Management Console: where you see permissions
 
 ## Useful
 
