@@ -11,15 +11,7 @@
 
 - Amazon CloudWatch: monitor computing resources and network activity on your web application.
 
-- Lambda: Servelss piece of code
-
-- Amazon EMR is specifically built for massive big data processing (Hadoop, Spark, Trino, etc.),
-
-- AWS Glue ETL is a fully managed, serverless ETL service that abstract away infrastructure management (provisioning, configuring, and scaling clusters), making it significantly more convenient for standard ETL pipelines.
-
-- AWS Kinesis Data Streams receives the online user activity from the sales platform log. It then streams this data to Kinesis Data Firehose, which acts as a delivery service that handles loading data streams into S3. Amazon Kinesis Data Streams is an AWS-native, fully managed, serverless streaming service designed for quick setup with seamless integration into the AWS ecosystem (such as IAM, Lambda, S3, and CloudWatch), offering a highly convenient "out-of-the-box" experience.
-
-- Amazon Managed Streaming for Apache Kafka (MSK) carries more operational overhead than Kinesis because it manages standard Kafka cluster architectures (brokers, zookeeper/KRaft modes, topic partitions, cluster sizing/upgrades)
+- Lambda: Serverless piece of code
 
 - Amazon EC2 Auto Scaling group: this group consists of a collection of EC2 instances. 
 
@@ -33,7 +25,21 @@
 
 - boto3: AWS SDK for Python
 
-- - Management Console: where you see permissions
+- Management Console: where you see permissions
+
+## Ingestion
+
+- Amazon EMR is specifically built for massive big data processing (Hadoop, Spark, Trino, etc.),
+
+- AWS Glue ETL is a fully managed, serverless ETL service that abstract away infrastructure management (provisioning, configuring, and scaling clusters), making it significantly more convenient for standard ETL pipelines.
+
+- AWS DMS (Data migration service): when you don't need to perform transformations
+
+- AWS Kinesis Data Streams receives the online user activity from the sales platform log. It then streams this data to Kinesis Data Firehose, which acts as a delivery service that handles loading data streams into S3. Amazon Kinesis Data Streams is an AWS-native, fully managed, serverless streaming service designed for quick setup with seamless integration into the AWS ecosystem (such as IAM, Lambda, S3, and CloudWatch), offering a highly convenient "out-of-the-box" experience.
+
+- Amazon Managed Streaming for Apache Kafka (MSK) carries more operational overhead than Kinesis because it manages standard Kafka cluster architectures (brokers, zookeeper/KRaft modes, topic partitions, cluster sizing/upgrades)
+
+
 
 ## Useful
 
